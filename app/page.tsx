@@ -45,7 +45,7 @@ export default function WelcomePage() {
       <div className="relative z-10 w-full max-w-sm pb-16 space-y-6">
         {/* Haupt-Button mit Gradienten-Effekt */}
         <Link
-          href="/login/signup"
+          href="/login/signIn"
           className="btn-gradient w-full h-16 md:h-20 text-xl font-bold rounded-2xl flex items-center justify-center gap-3 hover:scale-[1.02] transition-transform"
         >
           <span className="text-amber-50">Get Started</span>
@@ -57,13 +57,13 @@ export default function WelcomePage() {
         {/* Link zur Login-Seite */}
         <div className="text-center">
           <p className="text-white/40 text-lg">
-            Haben Sie bereits ein Konto?
+            Haben Sie bereits kein Konto?
             <Link
-              href="app/(default)/login/signIn/page.tsx"
+              href="/login/signUp"
               className="text-primary font-bold ml-1 hover:underline"
             >
               {" "}
-              Sign In
+              Sign Up
             </Link>
           </p>
         </div>
