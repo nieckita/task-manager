@@ -1,6 +1,18 @@
+"use client";
 import Link from "next/link";
+import { verifyUser } from "../actions";
+import { useState } from "react";
 
 export default function signIn() {
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  async function handleSubmit(formData: FormData) {
+    const result = await verifyUser(formData);
+    if (result.message) {
+      setErrorMessage(result.message);
+    } else if (result.sucssess) {
+      window.location.href = "/dashboard";
+    }
+  }
   return (
     <div>
       <div>
@@ -12,7 +24,7 @@ export default function signIn() {
         </p>
       </div>
       <div className="glass-card rounded-4xl p-8 w-full">
-        <form className="space-y-6">
+        <form action={handleSubmit} className="space-y-6">
           <div className="space-y-2">
             <label className="text-white/90 text-xs font-bold uppercase tracking-wider ml-1">
               Email Address
@@ -22,6 +34,7 @@ export default function signIn() {
                 mail
               </span>
               <input
+                name="email"
                 className="w-full rounded-xl text-white bg-white/5 border border-violet-500/20 focus:border-violet-500 focus:ring-1 focus:ring-violet-500/50 h-14 pl-12 pr-4 text-base transition-all outline-none"
                 placeholder="name@example.com"
                 type="email"
@@ -39,10 +52,12 @@ export default function signIn() {
                 lock
               </span>
               <input
+                name="password"
                 className="w-full rounded-xl text-white bg-white/5 border border-violet-500/20 focus:border-violet-500 focus:ring-1 focus:ring-violet-500/50 h-14 pl-12 pr-12 text-base transition-all outline-none"
                 placeholder="••••••••"
                 type="password"
               />
+
               <button
                 className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30 hover:text-white transition-colors"
                 type="button"
@@ -61,8 +76,13 @@ export default function signIn() {
               </Link>
             </div>
           </div>
-          <Link
-            href="./signIn"
+          {errorMessage && (
+            <p className="text-red-400 text-sm font-medium text-center bg-red-400/10 py-2 rounded-lg border border-red-400/20">
+              {errorMessage}
+            </p>
+          )}
+          <button
+            type="submit"
             className="btn-gradient w-full h-14
                md:h-14 text-amber-50 text-xl font-bold rounded-2xl flex items-center justify-center gap-3 hover:scale-[1.02] transition-transform"
           >
@@ -70,7 +90,7 @@ export default function signIn() {
             <span className="material-symbols-outlined text-2xl text-amber-50">
               arrow_forward
             </span>
-          </Link>
+          </button>
         </form>
       </div>
       <div className="mt-10 text-center">
