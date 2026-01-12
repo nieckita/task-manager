@@ -1,6 +1,19 @@
+"use client";
 import Link from "next/link";
+import { createUser } from "../actions";
+import { use, useState } from "react";
 
 export default function signIn() {
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  async function handleSubmit(formData: FormData) {
+    const result = await createUser(formData);
+    if (result.error) {
+      setErrorMessage(result.error);
+    } else if (!result.error) {
+      window.location.href = "/signIn";
+    }
+  }
+
   return (
     <>
       <div>
@@ -12,7 +25,7 @@ export default function signIn() {
         </p>
       </div>
       <div className="glass-card rounded-[2.5rem] p-8 w-full">
-        <form className="space-y-5">
+        <form action={handleSubmit} className="space-y-5">
           <div className="space-y-2">
             <label className="text-white/90 text-[10px] font-bold uppercase tracking-widest ml-1">
               Full Name
@@ -22,6 +35,7 @@ export default function signIn() {
                 person
               </span>
               <input
+                name="name"
                 className="w-full rounded-xl text-white bg-white/5 border border-violet-500/20 focus:border-violet-500 focus:ring-1 focus:ring-violet-500/50 h-14 pl-12 pr-4 text-base transition-all outline-none"
                 placeholder="John Doe"
                 type="text"
@@ -37,6 +51,7 @@ export default function signIn() {
                 mail
               </span>
               <input
+                name="email"
                 className="w-full rounded-xl text-white bg-white/5 border border-violet-500/20 focus:border-violet-500 focus:ring-1 focus:ring-violet-500/50 h-14 pl-12 pr-4 text-base transition-all outline-none"
                 placeholder="name@example.com"
                 type="email"
@@ -52,6 +67,7 @@ export default function signIn() {
                 lock
               </span>
               <input
+                name="password"
                 className="w-full rounded-xl text-white bg-white/5 border border-violet-500/20 focus:border-violet-500 focus:ring-1 focus:ring-violet-500/50 h-14 pl-12 pr-12 text-base transition-all outline-none"
                 placeholder="••••••••"
                 type="password"
