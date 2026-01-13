@@ -1,19 +1,17 @@
 "use client";
+import { useAuthForm } from "@/lib/hook/helpers";
 import Link from "next/link";
 import { createUser } from "../actions";
-import { use, useState } from "react";
 
 export default function signIn() {
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  async function handleSubmit(formData: FormData) {
-    const result = await createUser(formData);
-    if (result.error) {
-      setErrorMessage(result.error);
-    } else if (!result.error) {
-      window.location.href = "/signIn";
-    }
-  }
+  const { handleSubmit, errorMessage, isPending, setErrorMessage } =
+    useAuthForm(createUser, "/signIn");
 
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    await handleSubmit(formData);
+  };
   return (
     <>
       <div>
@@ -36,9 +34,12 @@ export default function signIn() {
               </span>
               <input
                 name="name"
-                className="w-full rounded-xl text-white bg-white/5 border border-violet-500/20 focus:border-violet-500 focus:ring-1 focus:ring-violet-500/50 h-14 pl-12 pr-4 text-base transition-all outline-none"
+                className="w-full rounded-xl text-white bg-white/5 border border-violet-500/20 focus:border-violet-500 focus:ring-1 focus:ring-violet-500/50 h-14 pl-12 pr-4 text-base transition-all outline-none focus:placeholder-transparent"
                 placeholder="John Doe"
                 type="text"
+                onFocus={() => setErrorMessage(null)}
+                onChange={() => setErrorMessage(null)}
+                required
               />
             </div>
           </div>
@@ -52,9 +53,12 @@ export default function signIn() {
               </span>
               <input
                 name="email"
-                className="w-full rounded-xl text-white bg-white/5 border border-violet-500/20 focus:border-violet-500 focus:ring-1 focus:ring-violet-500/50 h-14 pl-12 pr-4 text-base transition-all outline-none"
+                className=" w-full rounded-xl text-white bg-white/5 border border-violet-500/20 focus:border-violet-500 focus:ring-1 focus:ring-violet-500/50 h-14 pl-12 pr-4 text-base transition-all outline-none focus:placeholder-transparent"
                 placeholder="name@example.com"
                 type="email"
+                onFocus={() => setErrorMessage(null)}
+                onChange={() => setErrorMessage(null)}
+                required
               />
             </div>
           </div>
@@ -63,20 +67,28 @@ export default function signIn() {
               Password
             </label>
             <div className="relative">
-              <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-white/30 text-xl">
+              <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-xl">
                 lock
               </span>
               <input
                 name="password"
-                className="w-full rounded-xl text-white bg-white/5 border border-violet-500/20 focus:border-violet-500 focus:ring-1 focus:ring-violet-500/50 h-14 pl-12 pr-12 text-base transition-all outline-none"
-                placeholder="••••••••"
+                className="w-full rounded-xl text-white bg-white/5 border border-violet-500/20 focus:border-violet-500 focus:ring-1 focus:ring-violet-500/50 h-14 pl-12 pr-12 text-base transition-all outline-none focus:placeholder-transparent"
+                placeholder="**********"
                 type="password"
+                onFocus={() => setErrorMessage(null)}
+                onChange={() => setErrorMessage(null)}
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                required
               />
+              <label className="text-yellow-400 text-[7px] font-bold uppercase tracking-widest ml-1">
+                Mind. 8 Zeichen, inkl. Groß- & Kleinschreibung und Zahlen.
+              </label>
               <button
                 className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30 hover:text-white transition-colors"
                 type="button"
               >
-                <span className="material-symbols-outlined text-xl">
+                <span className="material-symbols-outlined text-xl text-gray-400">
                   visibility
                 </span>
               </button>

@@ -7,6 +7,12 @@ export default function signIn() {
   const { handleSubmit, errorMessage, isPending, setErrorMessage } =
     useAuthForm(verifyUser, "/dashboard");
 
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    await handleSubmit(formData);
+  };
+
   return (
     <div>
       <div>
@@ -18,7 +24,7 @@ export default function signIn() {
         </p>
       </div>
       <div className="glass-card rounded-4xl p-8 w-full">
-        <form action={handleSubmit} className="space-y-6">
+        <form onSubmit={handleFormSubmit} className="space-y-6">
           <div className="space-y-2">
             <label className="text-white/90 text-xs font-bold uppercase tracking-wider ml-1">
               Email Address
@@ -29,13 +35,15 @@ export default function signIn() {
               </span>
               <input
                 name="email"
-                className="w-full rounded-xl text-white bg-white/5 border border-violet-500/20 focus:border-violet-500 focus:ring-1 focus:ring-violet-500/50 h-14 pl-12 pr-4 text-base transition-all outline-none"
+                className=" w-full rounded-xl text-white bg-white/5 border border-violet-500/20 focus:border-violet-500 focus:ring-1 focus:ring-violet-500/50 h-14 pl-12 pr-4 text-base transition-all focus:placeholder-transparent outline-none"
                 placeholder="name@example.com"
                 type="email"
                 required
                 autoComplete="off"
                 autoCapitalize="off"
                 autoCorrect="off"
+                onFocus={() => setErrorMessage(null)}
+                onChange={() => setErrorMessage(null)}
               />
             </div>
           </div>
@@ -46,20 +54,26 @@ export default function signIn() {
               </label>
             </div>
             <div className="relative">
-              <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2  text-gray-500  text-xl ">
+              <span className="material-symbols-outlined absolute left-4  top-1/2 -translate-y-1/2  text-gray-500  text-xl ">
                 lock
               </span>
               <input
                 name="password"
-                className="w-full rounded-xl text-white bg-white/5 border border-violet-500/20 focus:border-violet-500 focus:ring-1 focus:ring-violet-500/50 h-14 pl-12 pr-12 text-base transition-all outline-none"
-                placeholder="••••••••"
+                className=" w-full rounded-xl text-white bg-white/5 border border-violet-500/20 focus:border-violet-500 focus:ring-1 focus:ring-violet-500/50 h-14 pl-12 pr-12 text-base transition-all outline-none focus:placeholder-transparent"
+                placeholder="**********"
                 type="password"
                 required
                 autoComplete="off"
                 autoCapitalize="off"
                 autoCorrect="off"
+                onFocus={() => setErrorMessage(null)}
+                onChange={() => setErrorMessage(null)}
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
               />
-
+              <label className="text-yellow-400 text-[7px] font-bold uppercase tracking-widest ml-1">
+                Mind. 8 Zeichen, inkl. Groß- & Kleinschreibung und Zahlen.
+              </label>
               <button
                 className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30 hover:text-white transition-colors"
                 type="button"
