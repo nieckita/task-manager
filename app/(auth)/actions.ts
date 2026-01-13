@@ -4,11 +4,11 @@
  */
 "use server";
 import prisma from "@/lib/generated/prisma/prisma";
-import { error } from "console";
 
 export async function verifyUser(formData: FormData) {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
+
   console.log(email, password);
   try {
     const user = await prisma.user.findUnique({

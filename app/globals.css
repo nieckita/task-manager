@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 @theme {
-  /* تعریف رنگ‌های اختصاصی تو */
+  /*Colors default*/
   --color-primary: #8b5cf6;
   --color-indigo-custom: #4f46e5;
   --color-bg-dark: #0f0f1a;
 
-  /* تعریف فونت */
+  /* font default */
   --font-display: "Inter", sans-serif;
 }
 

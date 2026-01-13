@@ -1,5 +1,5 @@
-import React from "react";
-
+import Link from "next/link";
+import { useAuthForm } from "@/lib/hook/helpers";
 export default function Header() {
   return (
     <>
@@ -23,7 +23,7 @@ export default function Header() {
           <span className="material-symbols-outlined text-white/80">
             notifications
           </span>
-          <span className="absolute top-3 right-3.5 size-2.5 bg-neon-high rounded-full border-2 border-[#12121A]"></span>
+          <span className="absolute top-3 right-1/5 -translate-x-1/4  size-2.5 bg-red-600   rounded-full border-2 border-[#ff0202] "></span>
         </button>
       </header>
       <div className="px-6 mb-6">
