@@ -67,7 +67,7 @@ export default function signIn() {
               Password
             </label>
             <div className="relative">
-              <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-xl">
+              <span className="material-symbols-outlined absolute left-4 top-5 -translate-0.5 text-gray-400 text-xl">
                 lock
               </span>
               <input
@@ -85,7 +85,7 @@ export default function signIn() {
                 Mind. 8 Zeichen, inkl. Groß- & Kleinschreibung und Zahlen.
               </label>
               <button
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30 hover:text-white transition-colors"
+                className="absolute right-4 top-5 -translate-0.5 text-white/30 hover:text-white transition-colors"
                 type="button"
               >
                 <span className="material-symbols-outlined text-xl text-gray-400">

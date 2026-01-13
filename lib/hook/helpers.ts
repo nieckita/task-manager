@@ -5,6 +5,8 @@ type AuthAction = (formData: FormData) => Promise<{
   success?: boolean;
   message?: string;
 }>;
+
+type showPassword = (input: HTMLInputElement) => void;
 export function useAuthForm(authAction: AuthAction, redirectUrl: string) {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isPending, setIsPending] = useState(false);

@@ -2,8 +2,10 @@
 import { useAuthForm } from "@/lib/hook/helpers";
 import Link from "next/link";
 import { verifyUser } from "../actions";
+import { useState } from "react";
 
 export default function signIn() {
+  const [showPassword, setShowPassword] = useState(false);
   const { handleSubmit, errorMessage, isPending, setErrorMessage } =
     useAuthForm(verifyUser, "/dashboard");
 
@@ -30,7 +32,7 @@ export default function signIn() {
               Email Address
             </label>
             <div className="relative">
-              <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-white/30 text-xl">
+              <span className="material-symbols-outlined absolute left-4 top-5 -translate-0.5  text-white/30 text-xl">
                 mail
               </span>
               <input
@@ -54,14 +56,14 @@ export default function signIn() {
               </label>
             </div>
             <div className="relative">
-              <span className="material-symbols-outlined absolute left-4  top-1/2 -translate-y-1/2  text-gray-500  text-xl ">
+              <span className="material-symbols-outlined absolute left-4  top-5 -translate-0.5  text-gray-500  text-xl ">
                 lock
               </span>
               <input
                 name="password"
                 className=" w-full rounded-xl text-white bg-white/5 border border-violet-500/20 focus:border-violet-500 focus:ring-1 focus:ring-violet-500/50 h-14 pl-12 pr-12 text-base transition-all outline-none focus:placeholder-transparent"
                 placeholder="**********"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 required
                 autoComplete="off"
                 autoCapitalize="off"
@@ -75,11 +77,12 @@ export default function signIn() {
                 Mind. 8 Zeichen, inkl. Groß- & Kleinschreibung und Zahlen.
               </label>
               <button
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30 hover:text-white transition-colors"
+                className="absolute right-4 top-5 -translate-0.5 text-white/30 hover:text-white transition-colors"
                 type="button"
+                onClick={() => setShowPassword(!showPassword)}
               >
                 <span className="material-symbols-outlined text-xl text-gray-500 p-1">
-                  visibility
+                  {showPassword ? "visibility_off" : "visibility"}
                 </span>
               </button>
             </div>
