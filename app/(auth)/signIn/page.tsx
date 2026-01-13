@@ -1,19 +1,12 @@
 "use client";
+import { useAuthForm } from "@/lib/hook/helpers";
 import Link from "next/link";
 import { verifyUser } from "../actions";
-import { useState } from "react";
 
 export default function signIn() {
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  async function handleSubmit(formData: FormData) {
-    setErrorMessage(null);
-    const result = await verifyUser(formData);
-    if (result.error && !result.sucssess) {
-      setErrorMessage(result.error);
-    } else if (result.sucssess) {
-      window.location.href = "/dashboard";
-    }
-  }
+  const { handleSubmit, errorMessage, isPending, setErrorMessage } =
+    useAuthForm(verifyUser, "/dashboard");
+
   return (
     <div>
       <div>
@@ -65,7 +58,6 @@ export default function signIn() {
                 autoComplete="off"
                 autoCapitalize="off"
                 autoCorrect="off"
-                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
               />
 
               <button
@@ -93,10 +85,13 @@ export default function signIn() {
           )}
           <button
             type="submit"
+            disabled={isPending}
             className="btn-gradient w-full h-14
                md:h-14 text-amber-50 text-xl font-bold rounded-2xl flex items-center justify-center gap-3 hover:scale-[1.02] transition-transform"
           >
-            <span className="text-amber-50">Sign In</span>
+            <span className="text-amber-50">
+              {isPending ? "Wird geladen..." : "Sign In"}
+            </span>
             <span className="material-symbols-outlined text-2xl text-amber-50">
               arrow_forward
             </span>

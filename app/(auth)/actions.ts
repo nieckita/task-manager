@@ -19,25 +19,23 @@ export async function verifyUser(formData: FormData) {
 
     if (!user) {
       return {
-        seccess: false,
+        success: false,
         error: "Benutzer nicht gefunden!",
         message: "Benutzer nicht gefunden!Können Sie sich Sign up?",
       };
     }
     if (password !== user.password) {
       return {
-        seccess: false,
-
+        success: false,
         error: "Falsches Passwort!",
         message: "Falsches Passwort!",
       };
     }
 
-    return { user, sucssess: true, userId: user.id };
+    return { user, success: true, userId: user.id };
   } catch (error) {
     return {
-      seccess: false,
-
+      success: false,
       error: "Datenbank Fehler!",
       message: "Datenbank Fehler!",
     };
@@ -57,7 +55,7 @@ export async function createUser(formData: FormData) {
         password: password,
       },
     });
-    return { user, sucssess: true, userId: user.id };
+    return { user, success: true, userId: user.id };
   } catch (error) {
     return { error: "Datenbank Fehler!" };
   }
