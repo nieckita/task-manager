@@ -15,6 +15,7 @@
   --glass-border: rgba(139, 92, 246, 0.3);
   --glow-violet: rgba(139, 92, 246, 0.6);
   --glow-indigo: rgba(79, 70, 229, 0.5);
+  --nav-bg: rgba(15, 15, 25, 0.7);
 }
 body {
   font-family: "Inter", sans-serif;
@@ -61,6 +62,158 @@ body {
 }
 .text-glow {
   text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+.mesh-gradient {
+  background-color: #0f0f1a;
+  background-image:
+    radial-gradient(at 100% 0%, rgba(168, 85, 247, 0.1) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(99, 102, 241, 0.1) 0px, transparent 50%);
+}
+.orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(120px);
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.5;
+}
+.orb-top-right {
+  top: -15%;
+  right: -15%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(
+    circle,
+    rgba(168, 85, 247, 0.5) 0%,
+    transparent 70%
+  );
+}
+.orb-bottom-left {
+  bottom: -10%;
+  left: -15%;
+  width: 550px;
+  height: 550px;
+  background: radial-gradient(
+    circle,
+    rgba(99, 102, 241, 0.4) 0%,
+    transparent 70%
+  );
+}
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  box-shadow:
+    0 8px 32px 0 rgba(0, 0, 0, 0.4),
+    inset 0 0 15px rgba(168, 85, 247, 0.05);
+}
+.glow-violet {
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+}
+.nav-container {
+  position: fixed;
+  bottom: 30px;
+  left: 20px;
+  right: 20px;
+  z-index: 50;
+}
+.nav-bar-pill {
+  background: rgba(15, 15, 25, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 35px;
+  height: 76px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 10px;
+  position: relative;
+}
+.nav-bar-pill::before {
+  content: "";
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 84px;
+  height: 42px;
+  background: rgba(15, 15, 25, 0.85);
+  backdrop-filter: blur(20px);
+  border-radius: 80px 80px 0 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  z-index: -1;
+}
+.floating-fab {
+  position: absolute;
+  top: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.6);
+  z-index: 60;
+}
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  gap: 2px;
+  z-index: 51;
+}
+.nav-item.active {
+  color: #a855f7;
+}
+.nav-item:not(.active) {
+  color: rgba(255, 255, 255, 0.4);
+}
+.ios-indicator {
+  position: fixed;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 134px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 100px;
+  z-index: 70;
+}
+.custom-checkbox {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+}
+.custom-checkbox:checked {
+  background: #a855f7;
+  border-color: #a855f7;
+}
+.custom-checkbox:checked::after {
+  content: "\e5ca";
+  font-family: "Material Symbols Outlined";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  z-index: 2;
 }
 @media mobile {
   body {
