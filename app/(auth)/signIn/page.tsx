@@ -6,9 +6,10 @@ import { useState } from "react";
 export default function signIn() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   async function handleSubmit(formData: FormData) {
+    setErrorMessage(null);
     const result = await verifyUser(formData);
-    if (result.message) {
-      setErrorMessage(result.message);
+    if (result.error && !result.sucssess) {
+      setErrorMessage(result.error);
     } else if (result.sucssess) {
       window.location.href = "/dashboard";
     }
@@ -38,6 +39,10 @@ export default function signIn() {
                 className="w-full rounded-xl text-white bg-white/5 border border-violet-500/20 focus:border-violet-500 focus:ring-1 focus:ring-violet-500/50 h-14 pl-12 pr-4 text-base transition-all outline-none"
                 placeholder="name@example.com"
                 type="email"
+                required
+                autoComplete="off"
+                autoCapitalize="off"
+                autoCorrect="off"
               />
             </div>
           </div>
@@ -56,6 +61,11 @@ export default function signIn() {
                 className="w-full rounded-xl text-white bg-white/5 border border-violet-500/20 focus:border-violet-500 focus:ring-1 focus:ring-violet-500/50 h-14 pl-12 pr-12 text-base transition-all outline-none"
                 placeholder="••••••••"
                 type="password"
+                required
+                autoComplete="off"
+                autoCapitalize="off"
+                autoCorrect="off"
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
               />
 
               <button

@@ -4,6 +4,7 @@
  */
 "use server";
 import prisma from "@/lib/generated/prisma/prisma";
+import { error } from "console";
 
 export async function verifyUser(formData: FormData) {
   const email = formData.get("email") as string;
@@ -19,16 +20,27 @@ export async function verifyUser(formData: FormData) {
     if (!user) {
       return {
         seccess: false,
+        error: "Benutzer nicht gefunden!",
         message: "Benutzer nicht gefunden!Können Sie sich Sign up?",
       };
     }
     if (password !== user.password) {
-      return { seccess: false, message: "Falsches Passwort!" };
+      return {
+        seccess: false,
+
+        error: "Falsches Passwort!",
+        message: "Falsches Passwort!",
+      };
     }
 
     return { user, sucssess: true, userId: user.id };
   } catch (error) {
-    return { seccess: false, message: "Datenbank Fehler!" };
+    return {
+      seccess: false,
+
+      error: "Datenbank Fehler!",
+      message: "Datenbank Fehler!",
+    };
   }
 }
 
